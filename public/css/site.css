@@ -16,17 +16,25 @@ body {
 }
 
 canvas {
-    position: relative;
+    display: block;
+    /* position: relative; */
     margin-top: 20px;
-    width: 100%;
+    /* width: 100%; */
     height: auto;
 }
 
 #clear {
     color: white;
-    font-size: 16px;
 }
 
 .ImageSelector {
     margin-bottom: 200px;
+}
+
+.canvasBtns {
+    margin-top: 10px;
+}
+
+#canvasImg {
+    margin-top: 10px;
 }

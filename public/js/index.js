@@ -16,6 +16,16 @@
 // }
 
 // window.onload = setupCanvas();
+const canvasW = 770;
+const canvasH = 400;
+
+function clear() {
+    const ctx = $('#canvas')[0].getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FFF";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    $("#canvasImg").hide();
+}
 
 function setupCanvas() {
     //setup canvas
@@ -29,8 +39,8 @@ function setupCanvas() {
     let lastX = 0;
     let lastY = 0;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = canvasW; //window.innerWidth;
+    canvas.height = canvasH;//window.innerHeight;
 
     ctx.strokeStyle = color;
     ctx.lineCap = 'round';
@@ -61,13 +71,16 @@ function setupCanvas() {
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
 
-    function clear() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#FFF";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
-
     clearButton.addEventListener('click', clear);
+}
+
+function saveCanvasImage() {
+    const canvas = document.querySelector('#canvas');
+    // save canvas image as data url (png format by default)
+    var dataURL = canvas.toDataURL();
+    // so it can be saved as an image
+    $("#canvasImg").show();
+    $('#canvasImg').attr({ "src": dataURL, "width": canvasW, "height": canvasH });
 }
 
 $(document).ready(function () {
@@ -75,6 +88,9 @@ $(document).ready(function () {
     //setup toggle
     const canvasDiv = $("#canvasDiv");
     const imagesDiv = $("#imageDiv");
+    const sketchBtn = $("#sketchBtn");
+    const uploadFileId = $("#uploadFileId");
+    const sketchBtnHtml = sketchBtn.html();
 
     canvasDiv.hide();
 
@@ -82,13 +98,19 @@ $(document).ready(function () {
         if (canvasDiv.is(":hidden") && imagesDiv.is(":visible")) {
             imagesDiv.hide();
             canvasDiv.show();
+            sketchBtn.text("Go Back");
+            uploadFileId.hide();
         } else {
+            clear();
             canvasDiv.hide();
             imagesDiv.show();
+            sketchBtn.html(sketchBtnHtml)
+            uploadFileId.show();
         }
     }
 
     $("#sketchBtn").on("click", toggleCanvas);
+    $("#saveBtn").on("click", saveCanvasImage);
 
     setupCanvas();
 });
