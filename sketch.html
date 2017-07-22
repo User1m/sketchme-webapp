@@ -7,8 +7,8 @@
     <meta name="description" content="The #SketchMe site use Machine Learning to turn your face sketch to a realistic image.">
     <meta property="og:description" content="The #SketchMe site use Machine Learning to turn your face sketch to a realistic image."
     />
-    <meta property="og:url" content="http://sketchme.azurewebsites.net">
-    <meta charset="utf-8" />
+    <meta property=" og:url" content="http://sketchme.azurewebsites.net">
+    <meta charset=" utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketch me to life</title>
 
@@ -16,43 +16,22 @@
     <script src="https://how-old.net/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1"></script>
 
     <script type="text/javascript">
-        var appInsights = window.appInsights || function (config) {
-            function s(config) {
-                t[config] = function () {
-                    var i = arguments;
-                    t.queue.push(function () { t[config].apply(t, i) })
-                }
-            }
-
-            var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u;
-            for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;)s("track" + i.pop());
-            return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) {
-                var s = u && u(config, r, f, e, o);
-                return s !== !0 && t["_" + i](config, r, f, e, o), s
-            }), t
-        }({
-            instrumentationKey: "9ee7038d-8036-41c1-9b93-933e8acb34ff"
-        });
-
-        window.appInsights = appInsights;
-        appInsights.trackPageView(null, null, { urlReferrr: document.referrer });
-    </script>
-    <script type="text/javascript">
         // set up optimizely, set cookie expiration for 2 years
         window['optimizely'] = window['optimizely'] || [];
         window['optimizely'].push(["setCookieExpiration", 730]);
     </script>
     <script src="//cdn.optimizely.com/js/2873520318.js"></script>
+    <script src="https://how-old.net/bundles/jquery?v=u8J3xxyrazUhSJl-OWRJ6I82HpC6Fs7PQ0-l8XzoZXY1"></script>
+    <script src="https://how-old.net/bundles/bootstrap?v=iuA1wfRQF7ISkian7NCXNyqiD0SLcjqt9L7Sq-jNZKo1"></script>
+
     <link href="./public/css/site.css" rel="stylesheet" />
-    <script src="./public/js/index.js"></script>
+    <!-- <script src="./public/js/index.js"></script> -->
 </head>
 
 <body>
     <div class="site-body">
         <div id="fb-root"></div>
         <div class="container" style="max-width: 800px; text-align: center">
-            <script src="https://how-old.net/bundles/jquery?v=u8J3xxyrazUhSJl-OWRJ6I82HpC6Fs7PQ0-l8XzoZXY1"></script>
-            <script src="https://how-old.net/bundles/bootstrap?v=iuA1wfRQF7ISkian7NCXNyqiD0SLcjqt9L7Sq-jNZKo1"></script>
             <div id="header">
                 <div id="headerimage"></div>
                 <div id="headertext">
@@ -60,7 +39,7 @@
                         <div>
                             <h1 id="picmeh1id">SketchMeToLife.net </h1>
                         </div>
-                        <div class="subheader">Sketch me to life <span id="demoSpan">#SketchMeToLife</span></div>
+                        <div class="subheader">Sketch Me To Life <span id="demoSpan">#SketchMeToLife</span></div>
                     </div>
                 </div>
             </div>
@@ -71,57 +50,24 @@
                     });
                 </script>
                 <form id="searchBing" role="search" action="/" method="get">
-                    <div class="input-group" style="background-color: white">
-                        <span class="input-group-addon" style="padding: 0px 0px 0px 0px; border: none">
-                            <img id="bLogo" class="" src="https://how-old.net/Images/bing2.png" data-bm="3">
-                        </span>
-                        <input type="search" name="q" style="border-style: none;" class="form-control" placeholder="Search Faces…" value="" id="searchText"
-                        />
-                        <div class="input-group-btn">
-                            <input tabindex="0" title="Search" class="b_searchboxSubmit" id="searchsubmit" type="submit" />
-                        </div>
+                    <div class="input-group" style="background-color: white"><span class="input-group-addon" style="padding: 0px 0px 0px 0px; border: none"><img id="bLogo" class="" src="https://how-old.net/Images/bing2.png" data-bm="3"></span>
+                        <input type="search" name="q" style="border-style: none;" class="form-control" placeholder="Search Faces…" value="" id="searchText">
+                        <div class="input-group-btn"><input tabindex="0" title="Search" class="b_searchboxSubmit" id="searchsubmit" type="submit"></div>
                     </div>
                 </form>
-                <div id="imageDiv" class="ImageSelector" style="opacity: 1;">
-                    <div id="imageList" class="ScrollArea notSelectedImage">
 
-                        <img src="./public/images/000005.gif" />
-                        <img src="./public/images/000006.gif" />
-                        <img src="./public/images/000007.gif" />
-                        <img src="./public/images/000008.gif" />
-                        <img src="./public/images/000009.gif" />
-                        <img src="./public/images/000010.gif" />
+                <canvas id="canvas"></canvas>
+                <button id="clear" class="btn btn-default action">Clear</button>
 
-
-                        <!-- <img src="https://how-old.net/Images/faces2/scroll007.jpg" data-url="Images/faces2/main007.jpg" data-image-name="faces2/main007.jpg"
-                            id="faces2/main007.jpg" data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll008.jpg"
-                            data-url="Images/faces2/main008.jpg" data-image-name="faces2/main008.jpg" id="faces2/main008.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll009.jpg"
-                            data-url="Images/faces2/main009.jpg" data-image-name="faces2/main009.jpg" id="faces2/main009.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll0010.jpg"
-                            data-url="Images/faces2/main0010.jpg" data-image-name="faces2/main0010.jpg" id="faces2/main0010.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll0011.jpg"
-                            data-url="Images/faces2/main0011.jpg" data-image-name="faces2/main0011.jpg" id="faces2/main0011.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll0012.jpg"
-                            data-url="Images/faces2/main0012.jpg" data-image-name="faces2/main0012.jpg" id="faces2/main0012.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll0013.jpg"
-                            data-url="Images/faces2/main0013.jpg" data-image-name="faces2/main0013.jpg" id="faces2/main0013.jpg"
-                            data-orig-url="" data-orig-domain="" /><img src="https://how-old.net/Images/faces2/scroll0014.jpg"
-                            data-url="Images/faces2/main0014.jpg" data-image-name="faces2/main0014.jpg" id="faces2/main0014.jpg"
-                            data-orig-url="" data-orig-domain="" /> -->
-                    </div>
-                    <div id="SelectorBox"><a id="attributionId" class="imgAttribution" href="#" target="_blank"></a></div>
-                    <div id="SelectorTag"><button type="button" class="btn btn-default" onclick="analyzeUrl() "><span class="glyphicon glyphicon-circle-arrow-right" style="margin-right: 4px" aria-hidden="true"></span>Use this photo </button></div>
-                </div>
                 <label id="sketchLabel" class="center-block" style="width: 230px;">
-                    <a href="./sketch.html" class="btn btn-default action">
+                    <button id="uploadFileId" class="btn btn-default action" onclick=" document.getElementById('uploadBtn').click(); ">
                         <span>
                             <img src="./public/images/draw.svg" style="width: 25px; height: 25px" />
-                        </span>Draw a sketch
-                    </a>
+                        </span>Use this sketch
+                    </button>
                 </label>
                 <label id="uploadLabel" class="center-block" style="width: 230px;">
-                    <button id="uploadFileId" class="btn btn-default action" onclick="document.getElementById('uploadBtn').click();">
+                    <button id="uploadFileId" class="btn btn-default action" onclick=" document.getElementById('uploadBtn').click(); ">
                         <span>
                             <img src="https://how-old.net/Images/browse-icon.svg" style="width: 25px; height: 25px" />
                         </span>Use your own photo
@@ -182,6 +128,57 @@
         </div>
     </div>
     <script src="/bundles/share?v=8532S6---mQHnhCJeqqr_rl7uemBwAKBln-AMluEVDk1"></script>
+    <script>
+                const canvas = document.querySelector('#canvas');
+                const ctx = canvas.getContext('2d');
+                const clearButton = document.querySelector('#clear');
+
+                let isDrawing = false;
+                let lineWidth = 10;
+                let color = "#000";
+                let lastX = 0;
+                let lastY = 0;
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                ctx.strokeStyle = color;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.lineWidth = lineWidth;
+                ctx.globalCompositeOperation = "normal";
+                ctx.fillStyle = "#FFF";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+                function draw(e) {
+                    if (!isDrawing) {
+                        return;
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(lastX, lastY);
+                    ctx.lineTo(e.offsetX, e.offsetY);
+                    ctx.stroke();
+
+                    [lastX, lastY] = [e.offsetX, e.offsetY];
+                }
+
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mousedown', (e) => {
+                    isDrawing = true;
+                    [lastX, lastY] = [e.offsetX, e.offsetY];
+                });
+                canvas.addEventListener('mouseup', () => isDrawing = false);
+                canvas.addEventListener('mouseout', () => isDrawing = false);
+
+                function clear() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+
+                clearButton.addEventListener('click', clear);
+    </script>
 </body>
 
 </html>

@@ -1,8 +1,27 @@
 body {
-    background-color: #fb0713;
+    background-color: #e6932e;
 }
 
 .ImageSelector .ScrollArea {
     /* border: solid #fb0713; */
     border-color: #fb0713;
+}
+
+#sketchLabel {
+    margin-top: 50px;
+}
+
+#uploadLabel {
+    margin-top: 10px;
+}
+
+canvas {
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+}
+
+#clear {
+    color: white;
+    font-size: 16px;
 }
