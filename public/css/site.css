@@ -4,7 +4,7 @@ body {
 
 .ImageSelector .ScrollArea {
     /* border: solid #fb0713; */
-    border-color: #fb0713;
+    border-color: #e6932e;
 }
 
 #sketchLabel {
@@ -16,6 +16,7 @@ body {
 }
 
 canvas {
+    position: relative;
     margin-top: 20px;
     width: 100%;
     height: auto;
@@ -24,4 +25,8 @@ canvas {
 #clear {
     color: white;
     font-size: 16px;
+}
+
+.ImageSelector {
+    margin-bottom: 200px;
 }
