@@ -1,7 +1,8 @@
 "use strict";
 
-const sketchAPI = "https://91448817.ngrok.io/sketch";
-const modelAPI = "https://91448817.ngrok.io/model";
+const baseAPI = "https://91448817.ngrok.io";
+const sketchAPI = `${baseAPI}/sketch`;
+const modelAPI = `${baseAPI}/model`;
 const imageType = "image/jpeg";
 const canvasW = 770;
 const canvasH = 400;
@@ -122,21 +123,10 @@ function getBase64Image(file) {
     img.src = URL.createObjectURL(file);
 }
 
-function getBase64File(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        // console.log(reader.result);
-        return reader.result;
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
-}
 
-function dlBase64Data(base64) {
-    window.open("data:application/octet-stream;base64," + base64);
-}
+// function dlBase64Data(base64) {
+//     window.open("data:application/octet-stream;base64," + base64);
+// }
 
 
 $(document).ready(function () {
@@ -146,7 +136,7 @@ $(document).ready(function () {
     const sketchBtn = $("#sketchBtn");
     const uploadFileId = $("#uploadFileId");
     const saveBtn = $("#saveBtn");
-    const uploadBtn = $("#uploadBtn");
+    const uploadBtn = $("#uploadImageBtn");
     const canvas = $("#canvas")[0];
     const canvasImg = $("#canvasImg");
 
