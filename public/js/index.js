@@ -16,6 +16,7 @@ function clear() {
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     $("#canvasImg").hide();
+    $("#sketchImg").hide();
 }
 
 function setupCanvas() {
@@ -83,9 +84,12 @@ function base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
-function showImage(data) {
+function showImages(data) {
+    var datas = data.split(",");
+    $("#sketchImg").show();
     $("#canvasImg").show();
-    $("#canvasImg").attr('src', 'data:image/jpg;base64,' + data);
+    $("#sketchImg").attr('src', 'data:image/jpg;base64,' + datas[0]);
+    $("#canvasImg").attr('src', 'data:image/jpg;base64,' + datas[1]);
 }
 
 function uploadToServer(image, url) {
@@ -102,7 +106,7 @@ function uploadToServer(image, url) {
         processData: false,
         success: function (data) {
             $("#loader").hide();
-            showImage(data);
+            showImages(data);
             // alert('Image Generation Successful');
         },
         error: function () {
