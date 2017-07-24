@@ -7,6 +7,8 @@ const imageType = "image/jpeg";
 const canvasW = 770;
 const canvasH = 400;
 
+var currentAPI = modelAPI;
+
 function clear() {
     const canvas = $('#canvas')[0];
     const ctx = canvas.getContext('2d');
@@ -98,8 +100,8 @@ function uploadToServer(image, url) {
         data: bytesArray,
         processData: false,
         success: function (data) {
-            alert('Upload Successful');
             showImage(data);
+            alert('Image Generation Successful');
         },
         error: function () {
             alert('Error Uploading File');
@@ -118,7 +120,7 @@ function getBase64Image(file) {
         ctx.drawImage(img, 0, 0);
         var dataURL = canvas.toDataURL(imageType, 0.8);
         // dlBase64Data(dataURL);
-        uploadToServer(dataURL, sketchAPI);
+        uploadToServer(dataURL, currentAPI);
     };
     img.src = URL.createObjectURL(file);
 }
@@ -161,7 +163,7 @@ $(document).ready(function () {
 
     sketchBtn.on("click", function () { toggleCanvas() });
     saveBtn.on("click", function () {
-        uploadToServer(canvas.toDataURL(imageType, 0.8), sketchAPI);
+        uploadToServer(canvas.toDataURL(imageType, 0.8), currentAPI);
     });
     uploadBtn.on("change", function () {
         var imageFile = uploadBtn.get(0).files[0];
