@@ -15,8 +15,6 @@ function clear() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    $("#canvasImg").hide();
-    $("#sketchImg").hide();
 }
 
 function setupCanvas() {
@@ -84,10 +82,14 @@ function base64ToArrayBuffer(base64) {
     return bytes.buffer;
 }
 
+function showResults() {
+    $("#selectImage").hide();
+    $("#results").show();
+}
+
 function showImages(data) {
+    showResults();
     var datas = data.split(",");
-    $("#sketchImg").show();
-    $("#canvasImg").show();
     $("#sketchImg").attr('src', 'data:image/jpg;base64,' + datas[0]);
     $("#canvasImg").attr('src', 'data:image/jpg;base64,' + datas[1]);
 }
@@ -126,17 +128,10 @@ function getBase64Image(file) {
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
         var dataURL = canvas.toDataURL(imageType, 0.8);
-        // dlBase64Data(dataURL);
         uploadToServer(dataURL, currentAPI);
     };
     img.src = URL.createObjectURL(file);
 }
-
-
-// function dlBase64Data(base64) {
-//     window.open("data:application/octet-stream;base64," + base64);
-// }
-
 
 $(document).ready(function () {
     const sketchBtnHtml = $("#sketchBtn").html();
@@ -148,6 +143,9 @@ $(document).ready(function () {
     const uploadBtn = $("#uploadImageBtn");
     const canvas = $("#canvas")[0];
     const canvasImg = $("#canvasImg");
+    const tryAgainBtn = $("#tryAgainBtn");
+    const resultsArea = $("#results");
+    const selectImageArea = $('#selectImage');
 
     function toggleCanvas() {
         clear();
@@ -169,7 +167,10 @@ $(document).ready(function () {
 
     setupCanvas();
 
-    sketchBtn.on("click", function () { toggleCanvas() });
+    sketchBtn.on("click", function () {
+        // showResults();
+        toggleCanvas();
+    });
     saveBtn.on("click", function () {
         uploadToServer(canvas.toDataURL(imageType, 0.8), currentAPI);
     });
@@ -180,6 +181,10 @@ $(document).ready(function () {
         canvasImg.show();
         canvasImg.attr({ "src": src });
         getBase64Image(imageFile);
+    });
+    tryAgainBtn.on('click', function () {
+        selectImageArea.show();
+        resultsArea.hide();
     });
 });
 

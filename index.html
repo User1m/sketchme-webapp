@@ -89,9 +89,6 @@
                     </div>
                 </div>
                 <div id="loader" style="display:none"></div>
-                <br/>
-                <img id="sketchImg" hidden/>
-                <img id="canvasImg" hidden/>
                 <!-- BUTTON AREA -->
                 <label id="sketchLabel" class="center-block" style="width: 230px;">
                      <button id="sketchBtn" class="btn btn-default action">
@@ -117,16 +114,17 @@
             <div id="results" hidden>
                 <div id="analyzingLabel" class="bodyfont"></div>
                 <div id="imageSpacer" style="width:0px; height:0px;"></div>
-                <div id="thumbContainer" style="padding-left: 0px; position: relative;"><img id="thumbnail" src="https://how-old.net/Images/placeholder.png" class="img-responsive center-block"
-                        onerror=" this.onerror = null;this.src = '/Images/placeholder.png'; " /><a id="attributionMainId" class="imgAttribution"
+                <img id="sketchImg" class="img-responsive center-block" />
+                <img id="canvasImg" src="https://how-old.net/Images/placeholder.png" class="img-responsive center-block" />
+                <!-- <div id="thumbContainer" style="padding-left: 0px; position: relative;"><img id="thumbnail" src="https://how-old.net/Images/placeholder.png" class="img-responsive center-block"
+                        onerror="this.onerror = null;this.src = '/Images/placeholder.png'; " /><a id="attributionMainId" class="imgAttribution"
                         href="#" target="_blank"></a>
                     <div id="faces">
                         <div></div>
                     </div>
-                </div>
-                <p id="improvingLabel" class="help-block center-block bodyfont" style="font-weight: 100; font-size: 13px; text-align: center; visibility: hidden; margin-bottom: 20px; ">Sorry if we didn’t quite get it right - <a class="bodyfont link-underline" href="/goto?url=aka.ms/faceapi"
-                        target="_blank" style="font-weight: 100; font-size: 13px; text-decoration: underline">we are still improving this feature.</a>.</p>
-                <button id="tryAnotherBtn" class="btn btn-default center-block action" onclick=" history.go(-1); ">Try Another Photo! </button>
+                </div> -->
+                <p id="improvingLabel" class="help-block center-block bodyfont" style="font-weight: 100; font-size: 13px; text-align: center; margin-bottom: 20px; ">We are still improving this feature :).</p>
+                <button id="tryAgainBtn" class="btn btn-default center-block action">Try Another Photo! </button>
                 <div id="jsonEventDiv" style="margin-top: 30px;" hidden>
                     <pre id="jsonEvent" style="text-align: left"></pre>
                 </div>
