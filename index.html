@@ -98,10 +98,9 @@
                     <div class="canvasBtns">
                         <button id="clear" class="btn btn-default action">Clear</button>
                         <button id="saveBtn" class="btn btn-default action">Use Sketch</button>
-                        <br/>
-                        <img id="canvasImg" />
                     </div>
                 </div>
+                <img id="canvasImg" hidden/>
                 <!-- BUTTON AREA -->
                 <label id="sketchLabel" class="center-block" style="width: 230px;">
                      <button id="sketchBtn" class="btn btn-default action">
@@ -136,9 +135,7 @@
                 </div>
                 <p id="improvingLabel" class="help-block center-block bodyfont" style="font-weight: 100; font-size: 13px; text-align: center; visibility: hidden; margin-bottom: 20px; ">Sorry if we didn’t quite get it right - <a class="bodyfont link-underline" href="/goto?url=aka.ms/faceapi"
                         target="_blank" style="font-weight: 100; font-size: 13px; text-decoration: underline">we are still improving this feature.</a>.</p>
-                <div id="gameLauncher" hidden><button id="gameBtn" class="btn btn-default center-block action">Get a human opinion </button>
-                    <div id="gameConjunction" class="bodyfont">or</div>
-                </div><button id="tryAnotherBtn" class="btn btn-default center-block action" onclick=" history.go(-1); ">Try Another Photo! </button>
+                <button id="tryAnotherBtn" class="btn btn-default center-block action" onclick=" history.go(-1); ">Try Another Photo! </button>
                 <div id="jsonEventDiv" style="margin-top: 30px;" hidden>
                     <pre id="jsonEvent" style="text-align: left"></pre>
                 </div>
@@ -170,13 +167,9 @@
             />
 
             <script src="https://how-old.net/bundles/javascript?v=dqe6oCDSl16i2PlHZDiYY5yqvOdk7qjZhl3i40PJffI1"></script>
-            <script src="https://how-old.net/bundles/demo?v=fyQ-6M88HSI-RwZTWOepyT5Funl50h-3xjKYm597Mx01"></script>
-            <script type="text/javascript">
-                    window.enableGame = false;
-            </script>
+            <!-- <script src="https://how-old.net/bundles/demo?v=fyQ-6M88HSI-RwZTWOepyT5Funl50h-3xjKYm597Mx01"></script> -->
         </div>
     </div>
-    <script src="/bundles/share?v=8532S6---mQHnhCJeqqr_rl7uemBwAKBln-AMluEVDk1"></script>
 </body>
 
 </html>

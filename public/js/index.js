@@ -1,26 +1,14 @@
 "use strict";
 
-// var index = 0;
-// var query = document.getElementsByClassName("image-cycle");
-
-// function changeBanner() {
-//     for (var item of query) {
-//         [].forEach.call(
-//             item.children,
-//             function (v, i) {
-//                 item.children[i].hidden = i !== index
-//             }
-//         );
-//         index = (index + 1) % item.children.length;
-//     }
-// }
-
-// window.onload = setupCanvas();
+const sketchAPI = "https://91448817.ngrok.io/sketch";
+const modelAPI = "https://91448817.ngrok.io/model";
+const imageType = "image/jpeg";
 const canvasW = 770;
 const canvasH = 400;
 
 function clear() {
-    const ctx = $('#canvas')[0].getContext('2d');
+    const canvas = $('#canvas')[0];
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -29,7 +17,7 @@ function clear() {
 
 function setupCanvas() {
     //setup canvas
-    const canvas = document.querySelector('#canvas');
+    const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext('2d');
     const clearButton = document.querySelector('#clear');
 
@@ -77,40 +65,144 @@ function setupCanvas() {
 function saveCanvasImage() {
     const canvas = document.querySelector('#canvas');
     // save canvas image as data url (png format by default)
-    var dataURL = canvas.toDataURL();
-    // so it can be saved as an image
+    var dataURL = canvas.toDataURL(imageType, 0.8);
     $("#canvasImg").show();
     $('#canvasImg').attr({ "src": dataURL, "width": canvasW, "height": canvasH });
 }
 
-$(document).ready(function () {
+function base64ToArrayBuffer(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
+}
 
-    //setup toggle
+function showImage(data) {
+    $("#canvasImg").show();
+    $("#canvasImg").attr('src', 'data:image/jpg;base64,' + data);
+}
+
+function uploadToServer(image, url) {
+    var base64ImageContent = image.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+    var bytesArray = base64ToArrayBuffer(base64ImageContent);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        cache: false,
+        contentType: 'application/octet-stream',
+        data: bytesArray,
+        processData: false,
+        success: function (data) {
+            alert('Upload Successful');
+            showImage(data);
+        },
+        error: function () {
+            alert('Error Uploading File');
+        }
+    });
+}
+
+function getBase64Image(file) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    var img = new Image();
+    img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL(imageType, 0.8);
+        // dlBase64Data(dataURL);
+        uploadToServer(dataURL, sketchAPI);
+    };
+    img.src = URL.createObjectURL(file);
+}
+
+function getBase64File(file) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        // console.log(reader.result);
+        return reader.result;
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
+
+function dlBase64Data(base64) {
+    window.open("data:application/octet-stream;base64," + base64);
+}
+
+
+$(document).ready(function () {
+    const sketchBtnHtml = $("#sketchBtn").html();
     const canvasDiv = $("#canvasDiv");
-    const imagesDiv = $("#imageDiv");
+    const imageDiv = $("#imageDiv");
     const sketchBtn = $("#sketchBtn");
     const uploadFileId = $("#uploadFileId");
-    const sketchBtnHtml = sketchBtn.html();
-
-    canvasDiv.hide();
+    const saveBtn = $("#saveBtn");
+    const uploadBtn = $("#uploadBtn");
+    const canvas = $("#canvas")[0];
+    const canvasImg = $("#canvasImg");
 
     function toggleCanvas() {
-        if (canvasDiv.is(":hidden") && imagesDiv.is(":visible")) {
-            imagesDiv.hide();
+        clear();
+        if (canvasDiv.is(":hidden") && imageDiv.is(":visible")) {
+            imageDiv.hide();
             canvasDiv.show();
             sketchBtn.text("Go Back");
             uploadFileId.hide();
         } else {
-            clear();
             canvasDiv.hide();
-            imagesDiv.show();
-            sketchBtn.html(sketchBtnHtml)
+            imageDiv.show();
+            sketchBtn.html(sketchBtnHtml);
             uploadFileId.show();
         }
     }
 
-    $("#sketchBtn").on("click", toggleCanvas);
-    $("#saveBtn").on("click", saveCanvasImage);
+    canvasDiv.hide();
 
     setupCanvas();
+
+    sketchBtn.on("click", function () { toggleCanvas() });
+    saveBtn.on("click", function () {
+        uploadToServer(canvas.toDataURL(imageType, 0.8), sketchAPI);
+    });
+    uploadBtn.on("change", function () {
+        var imageFile = uploadBtn.get(0).files[0];
+        // console.log(imageData.type);
+        var src = window.URL.createObjectURL(imageFile);
+        canvasImg.show();
+        canvasImg.attr({ "src": src });
+        getBase64Image(imageFile);
+    });
 });
+
+
+
+
+
+
+
+
+// var index = 0;
+// var query = document.getElementsByClassName("image-cycle");
+
+// function changeBanner() {
+//     for (var item of query) {
+//         [].forEach.call(
+//             item.children,
+//             function (v, i) {
+//                 item.children[i].hidden = i !== index
+//             }
+//         );
+//         index = (index + 1) % item.children.length;
+//     }
+// }
+
+// window.onload = setupCanvas();
