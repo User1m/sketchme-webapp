@@ -89,6 +89,7 @@ function showImage(data) {
 }
 
 function uploadToServer(image, url) {
+    $("#loader").show();
     var base64ImageContent = image.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
     var bytesArray = base64ToArrayBuffer(base64ImageContent);
 
@@ -100,10 +101,12 @@ function uploadToServer(image, url) {
         data: bytesArray,
         processData: false,
         success: function (data) {
+            $("#loader").hide();
             showImage(data);
-            alert('Image Generation Successful');
+            // alert('Image Generation Successful');
         },
         error: function () {
+            $("#loader").hide();
             alert('Error Uploading File');
         }
     });
@@ -158,6 +161,7 @@ $(document).ready(function () {
     }
 
     canvasDiv.hide();
+    $("#loader").hide();
 
     setupCanvas();
 
