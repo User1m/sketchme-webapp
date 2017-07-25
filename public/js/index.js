@@ -218,6 +218,7 @@ $(document).ready(function () {
     });
     saveBtn.on("click", function () {
         uploadToServer(canvas.toDataURL(imageType, 0.8), currentAPI);
+        clear();
     });
     uploadBtn.on("change", function () {
         var imageFile = uploadBtn.get(0).files[0];
