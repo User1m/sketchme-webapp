@@ -19,15 +19,13 @@ function clear() {
 
 function setupCanvas() {
     //setup canvas
+    const canvasDiv = $("#canvasDiv");
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext('2d');
     const clearButton = document.querySelector('#clear');
 
     let lineWidth = 2;
     let color = "#000";
-
-    canvas.width = canvasW; //window.innerWidth;
-    canvas.height = canvasH;//window.innerHeight;
 
     ctx.strokeStyle = color;
     ctx.lineCap = 'round';
@@ -36,6 +34,14 @@ function setupCanvas() {
     ctx.globalCompositeOperation = "normal";
     ctx.fillStyle = "#FFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        canvas.width = window.innerWidth - 50;
+        canvas.height = window.innerWidth - 50;
+    } else {
+        canvas.width = canvasW;
+        canvas.height = canvasH;
+    }
 
     clearButton.addEventListener('click', clear);
 
@@ -106,6 +112,13 @@ function setupCanvas() {
             y: touchEvent.touches[0].clientY - rect.top
         };
     }
+
+    // function resizeCanvas() {
+    //     canvas.width =
+    //         canvas.height = $("#canvasDiv").width();
+    // }
+    // window.addEventListener('resize', resizeCanvas, false);
+    // window.addEventListener('orientationchange', resizeCanvas, false);
 }
 
 function saveCanvasImage() {
@@ -178,6 +191,7 @@ function getBase64Image(file) {
     img.src = URL.createObjectURL(file);
 }
 
+
 $(document).ready(function () {
     const sketchBtnHtml = $("#sketchBtn").html();
     const canvasDiv = $("#canvasDiv");
@@ -209,7 +223,6 @@ $(document).ready(function () {
 
     canvasDiv.hide();
     $("#loader").hide();
-
     setupCanvas();
 
     sketchBtn.on("click", function () {
