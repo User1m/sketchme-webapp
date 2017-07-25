@@ -16,10 +16,8 @@ body {
 }
 
 canvas {
-    display: block;
-    /* position: relative; */
+    display: inline-block;
     margin-top: 20px;
-    /* width: 100%; */
     height: auto;
 }
 

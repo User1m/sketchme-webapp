@@ -4,8 +4,8 @@ const baseAPI = "https://91448817.ngrok.io";
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const imageType = "image/jpeg";
-const canvasW = 770;
-const canvasH = 400;
+const canvasW = 400;//770;
+const canvasH = 400;//400;
 
 var currentAPI = modelAPI;
 
@@ -24,7 +24,7 @@ function setupCanvas() {
     const clearButton = document.querySelector('#clear');
 
     let isDrawing = false;
-    let lineWidth = 10;
+    let lineWidth = 2;
     let color = "#000";
     let lastX = 0;
     let lastY = 0;
@@ -186,6 +186,56 @@ $(document).ready(function () {
         selectImageArea.show();
         resultsArea.hide();
     });
+
+    document.body.addEventListener("touchstart", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchend", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchmove", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+
+    // Set up touch events for mobile, etc
+    canvas.addEventListener("touchstart", function (e) {
+        mousePos = getTouchPos(canvas, e);
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousedown", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+
+    canvas.addEventListener("touchend", function (e) {
+        var mouseEvent = new MouseEvent("mouseup", {});
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+
+    canvas.addEventListener("touchmove", function (e) {
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousemove", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(mouseEvent);
+    }, false);
+
+    // Get the position of a touch relative to the canvas
+    function getTouchPos(canvasDom, touchEvent) {
+        var rect = canvasDom.getBoundingClientRect();
+        return {
+            x: touchEvent.touches[0].clientX - rect.left,
+            y: touchEvent.touches[0].clientY - rect.top
+        };
+    }
 });
 
 
