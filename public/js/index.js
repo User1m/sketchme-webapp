@@ -1,6 +1,6 @@
 "use strict";
 
-const baseAPI = "https://91448817.ngrok.io";
+const baseAPI = "https://d40769d2.ngrok.io";
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const imageType = "image/jpeg";
