@@ -37,6 +37,10 @@ canvas {
     margin-top: 10px;
 }
 
+.inline {
+    display: inline;
+}
+
 #loader {
     display: inline-block;
     border: 16px solid #f3f3f3;

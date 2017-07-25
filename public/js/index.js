@@ -7,7 +7,7 @@ const imageType = "image/jpeg";
 const canvasW = 400;//770;
 const canvasH = 400;//400;
 
-var currentAPI = modelAPI;
+var currentAPI = sketchAPI;
 
 function clear() {
     const canvas = $('#canvas')[0];
@@ -89,9 +89,10 @@ function showResults() {
 
 function showImages(data) {
     showResults();
-    var datas = data.split(",");
-    $("#sketchImg").attr('src', 'data:image/jpg;base64,' + datas[0]);
-    $("#canvasImg").attr('src', 'data:image/jpg;base64,' + datas[1]);
+    var splitData = data.split(",");
+    if (splitData[0]) { $("#sketchImg").attr('src', 'data:image/jpg;base64,' + splitData[0]); }
+    if (splitData[1]) { $("#canvasImg").attr('src', 'data:image/jpg;base64,' + splitData[1]); }
+    if (splitData[2]) { $("#originalImg").attr('src', 'data:image/jpg;base64,' + splitData[2]); }
 }
 
 function uploadToServer(image, url) {

@@ -78,7 +78,7 @@
                     </div>
                     <div id="SelectorBox"><a id="attributionId" class="imgAttribution" href="#" target="_blank"></a></div>
                     <div id="SelectorTag">
-                        <!-- <button type="button" class="btn btn-default" onclick="analyzeUrl() "><span class="glyphicon glyphicon-circle-arrow-right" style="margin-right: 4px" aria-hidden="true"></span>Use this photo </button> -->
+                        <!-- <button type="button" class="btn btn-default" onclick="analyzeUrl()"><span class="glyphicon glyphicon-circle-arrow-right" style="margin-right: 4px" aria-hidden="true"></span>Use this photo </button> -->
                     </div>
                 </div>
                 <div id="canvasDiv">
@@ -114,16 +114,17 @@
             <div id="results" hidden>
                 <div id="analyzingLabel" class="bodyfont"></div>
                 <div id="imageSpacer" style="width:0px; height:0px;"></div>
-                <img id="sketchImg" class="img-responsive center-block" />
-                <img id="canvasImg" src="https://how-old.net/Images/placeholder.png" class="img-responsive center-block" />
+                <img id="sketchImg" class="img-responsive inline" />
+                <img id="canvasImg" src="https://how-old.net/Images/placeholder.png" class="img-responsive inline" />
+                <img id="originalImg" class="img-responsive inline" />
                 <!-- <div id="thumbContainer" style="padding-left: 0px; position: relative;"><img id="thumbnail" src="https://how-old.net/Images/placeholder.png" class="img-responsive center-block"
-                        onerror="this.onerror = null;this.src = '/Images/placeholder.png'; " /><a id="attributionMainId" class="imgAttribution"
+                        onerror="this.onerror = null;this.src = '/Images/placeholder.png';" /><a id="attributionMainId" class="imgAttribution"
                         href="#" target="_blank"></a>
                     <div id="faces">
                         <div></div>
                     </div>
                 </div> -->
-                <p id="improvingLabel" class="help-block center-block bodyfont" style="font-weight: 100; font-size: 13px; text-align: center; margin-bottom: 20px; ">We are still improving this feature :).</p>
+                <p id="improvingLabel" class="help-block center-block bodyfont" style="font-weight: 100; font-size: 13px; text-align: center; margin-bottom: 20px;">We are still improving this feature :).</p>
                 <button id="tryAgainBtn" class="btn btn-default center-block action">Try Another Photo! </button>
                 <div id="jsonEventDiv" style="margin-top: 30px;" hidden>
                     <pre id="jsonEvent" style="text-align: left"></pre>
