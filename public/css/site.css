@@ -19,6 +19,7 @@ canvas {
     display: inline-block;
     margin-top: 20px;
     height: auto;
+    touch-action: none;
 }
 
 #clear {
