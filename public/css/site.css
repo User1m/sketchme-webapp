@@ -42,11 +42,7 @@ canvas {
 
 .inline {
     display: inline;
-    margin-bottom: 10px;
-}
-
-#results {
-    display: table-footer-group;
+    margin-top: 10px;
 }
 
 #loader {

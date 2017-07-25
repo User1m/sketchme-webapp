@@ -4,10 +4,10 @@ const baseAPI = "https://91448817.ngrok.io";
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const imageType = "image/jpeg";
-const canvasW = 400;//770;
-const canvasH = 400;//400;
+const canvasW = 500;//770;
+const canvasH = 500;//400;
 
-var currentAPI = sketchAPI;//modelAPI;
+var currentAPI = sketchAPI; //modelAPI;
 
 function clear() {
     const canvas = $('#canvas')[0];
