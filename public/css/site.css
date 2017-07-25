@@ -40,12 +40,13 @@ canvas {
     margin-top: 10px;
 }
 
-#canvasImg {
-    margin-top: 10px;
-}
-
 .inline {
     display: inline;
+    margin-bottom: 10px;
+}
+
+#results {
+    display: table-footer-group;
 }
 
 #loader {

@@ -7,7 +7,7 @@ const imageType = "image/jpeg";
 const canvasW = 400;//770;
 const canvasH = 400;//400;
 
-var currentAPI = modelAPI;
+var currentAPI = sketchAPI;//modelAPI;
 
 function clear() {
     const canvas = $('#canvas')[0];
@@ -158,7 +158,7 @@ function uploadToServer(image, url) {
         },
         error: function () {
             $("#loader").hide();
-            alert('Error Uploading File');
+            alert('Error uploading image. Please verify that the image is valid and less than 10MB.');
         }
     });
 }
