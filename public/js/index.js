@@ -106,13 +106,6 @@ function setupCanvas() {
             y: touchEvent.touches[0].clientY - rect.top
         };
     }
-
-    // function resizeCanvas() {
-    //     canvas.width = window.innerWidth;
-    //     canvas.height = window.innerHeight;
-    // }
-    // window.addEventListener('resize', resizeCanvas, false);
-    // window.addEventListener('orientationchange', resizeCanvas, false);
 }
 
 function saveCanvasImage() {
@@ -238,23 +231,6 @@ $(document).ready(function () {
         selectImageArea.show();
         resultsArea.hide();
     });
-
-    // // Prevent scrolling when touching the canvas
-    // document.body.addEventListener("touchstart", function (e) {
-    //     if (e.target == canvas) {
-    //         e.preventDefault();
-    //     }
-    // }, false);
-    // document.body.addEventListener("touchend", function (e) {
-    //     if (e.target == canvas) {
-    //         e.preventDefault();
-    //     }
-    // }, false);
-    // document.body.addEventListener("touchmove", function (e) {
-    //     if (e.target == canvas) {
-    //         e.preventDefault();
-    //     }
-    // }, false);
 });
 
 

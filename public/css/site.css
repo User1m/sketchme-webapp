@@ -22,6 +22,12 @@ canvas {
     touch-action: none;
 }
 
+@media screen and (max-width: 500px) {
+    canvas {
+        width: 100%;
+    }
+}
+
 #clear {
     color: white;
 }
