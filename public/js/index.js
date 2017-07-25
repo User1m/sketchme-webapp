@@ -7,7 +7,7 @@ const imageType = "image/jpeg";
 const canvasW = 400;//770;
 const canvasH = 400;//400;
 
-var currentAPI = sketchAPI;
+var currentAPI = modelAPI;
 
 function clear() {
     const canvas = $('#canvas')[0];
