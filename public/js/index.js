@@ -1,13 +1,14 @@
 "use strict";
 
-const baseAPI = "https://d40769d2.ngrok.io";
+const baseAPI = "https://30166304.ngrok.io";
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
-const imageType = "image/jpeg";
+const jpgImageType = "image/jpeg",
+    pngImageType = "image/png";
 const canvasW = 500;//770;
 const canvasH = 500;//400;
 
-var currentAPI = sketchAPI; //modelAPI;
+var currentAPI = modelAPI;
 
 function clear() {
     const canvas = $('#canvas')[0];
@@ -124,7 +125,7 @@ function setupCanvas() {
 function saveCanvasImage() {
     const canvas = document.querySelector('#canvas');
     // save canvas image as data url (png format by default)
-    var dataURL = canvas.toDataURL(imageType, 0.8);
+    var dataURL = canvas.toDataURL(jpgImageType, 0.8);
     $("#canvasImg").show();
     $('#canvasImg').attr({ "src": dataURL, "width": canvasW, "height": canvasH });
 }
@@ -185,7 +186,7 @@ function getBase64Image(file) {
         canvas.width = img.width;
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
-        var dataURL = canvas.toDataURL(imageType, 0.8);
+        var dataURL = canvas.toDataURL(jpgImageType, 0.8);
         uploadToServer(dataURL, currentAPI);
     };
     img.src = URL.createObjectURL(file);
@@ -230,7 +231,7 @@ $(document).ready(function () {
         toggleCanvas();
     });
     saveBtn.on("click", function () {
-        uploadToServer(canvas.toDataURL(imageType, 0.8), currentAPI);
+        uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
         clear();
     });
     uploadBtn.on("change", function () {
