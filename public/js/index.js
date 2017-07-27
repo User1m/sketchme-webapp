@@ -141,6 +141,7 @@ function base64ToArrayBuffer(base64) {
 }
 
 function showResults() {
+    clear();
     $("#selectImage").hide();
     $("#results").show();
 }
@@ -243,7 +244,6 @@ $(document).ready(function () {
     });
     saveBtn.on("click", function () {
         uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
-        clear();
     });
     uploadBtn.on("change", function () {
         var imageFile = uploadBtn.get(0).files[0];
