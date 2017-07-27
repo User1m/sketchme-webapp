@@ -177,7 +177,7 @@ function uploadToServer(image, url) {
     });
 }
 
-function getBase64Image(file) {
+function getBase64Image(file, cb) {
     // Create an empty canvas element
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
@@ -187,11 +187,19 @@ function getBase64Image(file) {
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
         var dataURL = canvas.toDataURL(jpgImageType, 0.8);
-        uploadToServer(dataURL, currentAPI);
+        cb(dataURL);
+        // uploadToServer(dataURL, currentAPI);
     };
     img.src = URL.createObjectURL(file);
 }
 
+function modelUpload(dataURL) {
+    uploadToServer(dataURL, modelAPI);
+}
+
+function sketchUpload(dataURL) {
+    uploadToServer(dataURL, sketchAPI);
+}
 
 $(document).ready(function () {
     const sketchBtnHtml = $("#sketchBtn").html();
@@ -199,13 +207,14 @@ $(document).ready(function () {
     const imageDiv = $("#imageDiv");
     const sketchBtn = $("#sketchBtn");
     const uploadFileId = $("#uploadFileId");
+    const uploadSketchId = $("#uploadSketchId");
     const saveBtn = $("#saveBtn");
     const uploadBtn = $("#uploadImageBtn");
     const canvas = $("#canvas")[0];
-    const canvasImg = $("#canvasImg");
     const tryAgainBtn = $("#tryAgainBtn");
     const resultsArea = $("#results");
     const selectImageArea = $('#selectImage');
+    const uploadSketchBtn = $("#uploadSketchBtn");
 
     function toggleCanvas() {
         clear();
@@ -214,11 +223,13 @@ $(document).ready(function () {
             canvasDiv.show();
             sketchBtn.text("Go Back");
             uploadFileId.hide();
+            uploadSketchId.hide();
         } else {
             canvasDiv.hide();
             imageDiv.show();
             sketchBtn.html(sketchBtnHtml);
             uploadFileId.show();
+            uploadSketchId.show();
         }
     }
 
@@ -236,11 +247,15 @@ $(document).ready(function () {
     });
     uploadBtn.on("change", function () {
         var imageFile = uploadBtn.get(0).files[0];
+        getBase64Image(imageFile, modelUpload);
         // console.log(imageData.type);
-        var src = window.URL.createObjectURL(imageFile);
-        canvasImg.show();
-        canvasImg.attr({ "src": src });
-        getBase64Image(imageFile);
+        // var src = window.URL.createObjectURL(imageFile);
+        // canvasImg.show();
+        // canvasImg.attr({ "src": src });
+    });
+    uploadSketchBtn.on("change", function () {
+        var imageFile = uploadBtn.get(0).files[0];
+        getBase64Image(imageFile, sketchUpload);
     });
     tryAgainBtn.on('click', function () {
         selectImageArea.show();

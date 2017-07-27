@@ -51,8 +51,16 @@
             </div>
             <div id="selectImage">
                 <h4 style="color: white; padding-bottom:2px;">
-                    Upload a photo of yourself, we'll turn it into a sketch and then try to bring it back to life using Machine Learning.
+                    How to use:
                 </h4>
+                <ul class="center-block" style="text-align: left; color: white; font-weight:300; font-size:16px;">
+                    <li> Draw a life-like sketch and we'll bring it fully to life using Machine Learning.
+                    </li>
+                    <li> Upload a photo of yourself, we'll turn it into a sketch and bring it back to life using Machine Learning.
+                    </li>
+                    <li> Upload a sketch and we'll bring it fully to life using Machine Learning.
+                    </li>
+                </ul>
                 <h4 style="color: white; padding-bottom:2px;">
                     Try it out below!
                 </h4>
@@ -85,7 +93,7 @@
                     <button id="sketchBtn" class="btn btn-default action">
                         <span>
                             <img src="./public/images/draw.svg" style="width: 25px; height: 25px" />
-                        </span>Draw a sketch
+                        </span>Draw  a sketch
                     </button>
                 </label>
                 <label id="uploadLabel" class="center-block" style="width: 230px;">
@@ -93,9 +101,19 @@
                         'uploadImageBtn').click();">
                         <span>
                             <img src="https://how-old.net/Images/browse-icon.svg" style="width: 25px; height: 25px" />
-                        </span>Use your own photo
+                        </span>Upload a photo
                     </button>
                     <input id="uploadImageBtn" type="file" accept="image/*" style="visibility: hidden; width: 0px; height:
+                        0px">
+                </label>
+                <label id="uploadLabel" class="center-block" style="width: 230px;">
+                    <button id="uploadSketchId" class="btn btn-default action" onclick="document.getElementById(
+                        'uploadSketchBtn').click();">
+                        <span>
+                            <img src="https://how-old.net/Images/browse-icon.svg" style="width: 25px; height: 25px" />
+                        </span>Upload a sketch
+                    </button>
+                    <input id="uploadSketchBtn" type="file" accept="image/*" style="visibility: hidden; width: 0px; height:
                         0px">
                 </label>
             </div>
@@ -129,8 +147,8 @@
         </div>
         <div class="container" style="max-width: 800px; text-align: center">
             <img id="microsoftIcon" src="https://how-old.net/Images/microsoft-rev-01.png" class="center-block" />
-            <p id="maxImageSize" class="help-block center-block bodyfont">P.S. We don’t keep the photo</p>
-
+            <!-- <p id="maxImageSize" class="help-block center-block bodyfont">P.S. We don’t keep the photo</p> -->
+            <p id="maxImageSize" class="help-block center-block bodyfont">P.S. Your photo, but no personal info, may be used to improve the underlying model.</p>
             <div id="footerId">
                 <a class="bodyfont link" style="font-size: 12px;" href="https://privacy.microsoft.com/en-us/privacystatement
                    " target="_blank">
