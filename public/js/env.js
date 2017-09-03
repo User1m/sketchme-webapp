@@ -1,3 +1,4 @@
 env = {
-  URL: "simone"
+  URL: undefined,
+  PORT: "3000"
 };

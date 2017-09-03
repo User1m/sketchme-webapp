@@ -1,6 +1,6 @@
 "use strict";
 
-const baseAPI = env.URL || "https://30166304.ngrok.io";
+const baseAPI = env.URL || `http://localhost:${env.PORT}`;
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const jpgImageType = "image/jpeg",
