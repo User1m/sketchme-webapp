@@ -275,7 +275,7 @@ $(document).ready(function() {
       navigator.userAgent
     )
   ) {
-    videoDiv.hide();
+    webcamBtn.hide();
   }
 
   function toggleCanvas() {
