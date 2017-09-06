@@ -154,8 +154,8 @@ function saveCanvasImage() {
   const canvas = document.querySelector("#canvas");
   // save canvas image as data url (png format by default)
   var dataURL = canvas.toDataURL(jpgImageType, 0.8);
-  $("#canvasImg").show();
-  $("#canvasImg").attr({ src: dataURL, width: canvasW, height: canvasH });
+  $("#resultImg").show();
+  $("#resultImg").attr({ src: dataURL, width: canvasW, height: canvasH });
 }
 
 function base64ToArrayBuffer(base64) {
@@ -181,7 +181,7 @@ function showImages(data) {
     $("#sketchImg").attr("src", "data:image/jpg;base64," + splitData[0]);
   }
   if (splitData[1]) {
-    $("#canvasImg").attr("src", "data:image/jpg;base64," + splitData[1]);
+    $("#resultImg").attr("src", "data:image/jpg;base64," + splitData[1]);
   }
   if (splitData[2]) {
     $("#originalImg").attr("src", "data:image/jpg;base64," + splitData[2]);
@@ -370,8 +370,8 @@ $(document).ready(function() {
     getBase64Image(imageFile, modelUpload);
     // console.log(imageData.type);
     // var src = window.URL.createObjectURL(imageFile);
-    // canvasImg.show();
-    // canvasImg.attr({ "src": src });
+    // resultImg.show();
+    // resultImg.attr({ "src": src });
   });
 
   // uploadSketchBtn.on("change", function() {
