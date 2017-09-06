@@ -68,7 +68,6 @@
                 <!-- MAIN CONTENT AREA  -->
                 <div id="imageDiv" class="ImageSelector" style="opacity: 1;">
                     <div id="imageList" class="ScrollArea notSelectedImage">
-
                         <img src="./public/images/000005.gif" />
                         <img src="./public/images/000006.gif" />
                         <img src="./public/images/000007.gif" />
@@ -85,7 +84,13 @@
                     <canvas id="canvas"></canvas>
                     <div class="canvasBtns">
                         <button id="clear" class="btn btn-default action">Clear</button>
-                        <button id="saveBtn" class="btn btn-default action">Use Sketch</button>
+                        <button id="useSketchBtn" class="btn btn-default action">Use Sketch</button>
+                    </div>
+                </div>
+                <div id="videoDiv">
+                    <video></video>
+                    <div class="videoBtns">
+                        <button id="useWebcamImageBtn" class="btn btn-default action">Use Image</button>
                     </div>
                 </div>
                 <div id="loader" style="display:none"></div>
@@ -94,7 +99,7 @@
                     <button id="sketchBtn" class="btn btn-default action">
                         <span>
                             <img src="./public/images/draw.svg" style="width: 25px; height: 25px" />
-                        </span>Draw  a sketch
+                        </span>Draw a sketch
                     </button>
                 </label>
                 <label id="uploadLabel" class="center-block" style="width: 230px;">
@@ -106,6 +111,13 @@
                     </button>
                     <input id="uploadImageBtn" type="file" accept="image/*" style="visibility: hidden; width: 0px; height:
                         0px">
+                </label>
+                <label id="webcamLabel" class="center-block" style="width: 230px;">
+                    <button id="webcamBtn" class="btn btn-default action">
+                        <span>
+                            <img src="./public/images/webcam.svg" style="width: 25px; height: 25px" />
+                        </span>Use Webcam
+                    </button>
                 </label>
                 <!-- <label id="uploadLabel" class="center-block" style="width: 230px;">
                     <button id="uploadSketchId" class="btn btn-default action" onclick="document.getElementById(

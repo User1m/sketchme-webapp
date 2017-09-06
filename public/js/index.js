@@ -248,54 +248,122 @@ $(document).ready(function() {
   const sketchBtn = $("#sketchBtn");
   const uploadFileId = $("#uploadFileId");
   const uploadSketchId = $("#uploadSketchId");
-  const saveBtn = $("#saveBtn");
-  const uploadBtn = $("#uploadImageBtn");
+  const useSketchBtn = $("#useSketchBtn");
+  const useWebcamImageBtn = $("#useWebcamImageBtn");
+  const uploadImageBtn = $("#uploadImageBtn");
   const canvas = $("#canvas")[0];
   const tryAgainBtn = $("#tryAgainBtn");
   const resultsArea = $("#results");
   const selectImageArea = $("#selectImage");
-  const uploadSketchBtn = $("#uploadSketchBtn");
+  // const uploadSketchBtn = $("#uploadSketchBtn");
+  const videoDiv = $("#videoDiv");
+  const webcamBtn = $("#webcamBtn");
 
-  function toggleCanvas() {
-    clear();
-    if (canvasDiv.is(":hidden") && imageDiv.is(":visible")) {
-      imageDiv.hide();
-      canvasDiv.show();
-      sketchBtn.text("Go Back");
-      uploadFileId.hide();
-      uploadSketchId.hide();
-    } else {
-      canvasDiv.hide();
-      imageDiv.show();
-      sketchBtn.html(sketchBtnHtml);
-      uploadFileId.show();
-      uploadSketchId.show();
-    }
-  }
+  navigator.getMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia;
 
+  /* Setup */
   canvasDiv.hide();
+  videoDiv.hide();
   $("#loader").hide();
   setupCanvas();
 
+  function toggleCanvas() {
+    clear();
+    videoDiv.hide();
+    imageDiv.hide();
+    canvasDiv.show();
+    sketchBtn.text("Go Home");
+    uploadFileId.hide();
+    uploadSketchId.hide();
+    webcamBtn.hide();
+  }
+
+  function toggleHome() {
+    clear();
+    videoDiv.hide();
+    canvasDiv.hide();
+    imageDiv.show();
+    sketchBtn.html(sketchBtnHtml);
+    uploadFileId.show();
+    uploadSketchId.show();
+    webcamBtn.show();
+  }
+
+  function toggleWebcam() {
+    clear();
+    videoDiv.show();
+    imageDiv.hide();
+    canvasDiv.hide();
+    sketchBtn.text("Go Home");
+    uploadFileId.hide();
+    uploadSketchId.hide();
+    webcamBtn.hide();
+  }
+
   sketchBtn.on("click", function() {
     // showResults();
-    toggleCanvas();
+    console.log(sketchBtn.text());
+    if (sketchBtn.text() != "Go Home") {
+      toggleCanvas();
+    } else {
+      toggleHome();
+    }
   });
-  saveBtn.on("click", function() {
+
+  webcamBtn.on("click", function() {
+    if (sketchBtn.text() != "Go Home") {
+      toggleWebcam();
+      navigator.getMedia(
+        // constraints
+        {
+          video: true,
+          audio: false
+        },
+        // success callback
+        function(mediaStream) {
+          var video = document.getElementsByTagName("video")[0];
+          video.src = window.URL.createObjectURL(mediaStream);
+          video.play();
+
+          useWebcamImageBtn.on("click", function() {
+            console.log("Sending video image");
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            // .drawImage(video, 0, 0, 300, 300, 0, 0, 300, 300);
+            uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
+          });
+        },
+        //handle error
+        function(error) {
+          console.log("ERROR ACCESSING VIDEO CAMERA: ");
+          console.log(error);
+        }
+      );
+    } else {
+      toggleHome();
+    }
+  });
+
+  useSketchBtn.on("click", function() {
     uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
   });
-  uploadBtn.on("change", function() {
-    var imageFile = uploadBtn.get(0).files[0];
+
+  uploadImageBtn.on("change", function() {
+    var imageFile = uploadImageBtn.get(0).files[0];
     getBase64Image(imageFile, modelUpload);
     // console.log(imageData.type);
     // var src = window.URL.createObjectURL(imageFile);
     // canvasImg.show();
     // canvasImg.attr({ "src": src });
   });
-  uploadSketchBtn.on("change", function() {
-    var imageFile = uploadBtn.get(0).files[0];
-    getBase64Image(imageFile, sketchUpload);
-  });
+
+  // uploadSketchBtn.on("change", function() {
+  //   var imageFile = uploadImageBtn.get(0).files[0];
+  //   getBase64Image(imageFile, sketchUpload);
+  // });
+
   tryAgainBtn.on("click", function() {
     selectImageArea.show();
     resultsArea.hide();

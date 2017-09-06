@@ -1,27 +1,26 @@
 body {
-    background-color: #e6932e;
+  background-color: #e6932e;
 }
 
 .ImageSelector .ScrollArea {
-    /* border: solid #fb0713; */
-    border-color: #e6932e;
+  /* border: solid #fb0713; */
+  border-color: #e6932e;
 }
 
 #sketchLabel {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #uploadLabel {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 canvas {
-    display: inline-block;
-    margin-top: 20px;
-    height: auto;
-    touch-action: none;
+  display: inline-block;
+  margin-top: 20px;
+  height: auto;
+  touch-action: none;
 }
-
 
 /* @media screen and (max-width: 500px) {
     canvas {
@@ -30,38 +29,39 @@ canvas {
 } */
 
 #clear {
-    color: white;
+  color: white;
 }
 
 .ImageSelector {
-    margin-bottom: 200px;
+  margin-bottom: 200px;
 }
 
-.canvasBtns {
-    margin-top: 10px;
+.canvasBtns,
+.videoBtns {
+  margin-top: 10px;
 }
 
 .inline {
-    display: inline;
-    margin-top: 10px;
+  display: inline;
+  margin-top: 10px;
 }
 
 #loader {
-    display: inline-block;
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    margin-top: 5px;
+  display: inline-block;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin-top: 5px;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
