@@ -258,6 +258,7 @@ $(document).ready(function() {
   // const uploadSketchBtn = $("#uploadSketchBtn");
   const videoDiv = $("#videoDiv");
   const webcamBtn = $("#webcamBtn");
+  const video = document.getElementsByTagName("video")[0];
 
   navigator.getMedia =
     navigator.getUserMedia ||
@@ -273,7 +274,8 @@ $(document).ready(function() {
   if (
     /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
-    )
+    ) ||
+    navigator.getMedia === undefined
   ) {
     webcamBtn.hide();
   }
@@ -332,22 +334,26 @@ $(document).ready(function() {
         },
         // success callback
         function(mediaStream) {
-          var video = document.getElementsByTagName("video")[0];
           video.src = window.URL.createObjectURL(mediaStream);
           video.play();
 
           useWebcamImageBtn.on("click", function() {
+            video.pause();
             var vidCanvas = document.createElement("canvas");
             vidCanvas.width = video.videoWidth;
             vidCanvas.height = video.videoHeight;
             vidCanvas.getContext("2d").drawImage(video, 0, 0);
             uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
+            setTimeout(function() {
+              video.play();
+            }, 5000);
           });
         },
         //handle error
         function(error) {
           console.log("ERROR ACCESSING VIDEO CAMERA: ");
           console.log(error);
+          alert("A webcam is not available on this device.");
         }
       );
     } else {
