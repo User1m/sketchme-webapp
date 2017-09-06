@@ -270,6 +270,14 @@ $(document).ready(function() {
   $("#loader").hide();
   setupCanvas();
 
+  if (
+    /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    videoDiv.hide();
+  }
+
   function toggleCanvas() {
     clear();
     videoDiv.hide();
@@ -329,10 +337,11 @@ $(document).ready(function() {
           video.play();
 
           useWebcamImageBtn.on("click", function() {
-            console.log("Sending video image");
-            canvas.getContext("2d").drawImage(video, 0, 0);
-            // .drawImage(video, 0, 0, 300, 300, 0, 0, 300, 300);
-            uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
+            var vidCanvas = document.createElement("canvas");
+            vidCanvas.width = video.videoWidth;
+            vidCanvas.height = video.videoHeight;
+            vidCanvas.getContext("2d").drawImage(video, 0, 0);
+            uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
           });
         },
         //handle error
