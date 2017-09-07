@@ -258,12 +258,11 @@ $(document).ready(function() {
   // const uploadSketchBtn = $("#uploadSketchBtn");
   const videoDiv = $("#videoDiv");
   const webcamBtn = $("#webcamBtn");
-  const video = document.getElementsByTagName("video")[0];
 
   navigator.getMedia =
+    navigator.mediaDevices.getUserMedia ||
     navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
-    navigator.mediaDevices.getUserMedia ||
     navigator.mozGetUserMedia;
 
   /* Setup */
@@ -327,38 +326,37 @@ $(document).ready(function() {
   webcamBtn.on("click", function() {
     if (sketchBtn.text() != "Go Home") {
       toggleWebcam();
-      navigator.getMedia(
-        // constraints
-        {
-          video: true,
-          audio: false
-        },
-        // success callback
-        function(mediaStream) {
-          video.src = window.URL.createObjectURL(mediaStream);
-          video.play();
+      var video = document.getElementById("video");
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
 
-          useWebcamImageBtn.on("click", function() {
-            video.pause();
-            var vidCanvas = document.createElement("canvas");
-            vidCanvas.width = video.videoWidth;
-            vidCanvas.height = video.videoHeight;
-            vidCanvas.getContext("2d").drawImage(video, 0, 0);
-            uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
-            setTimeout(function() {
-              video.play();
-            }, 5000);
+            useWebcamImageBtn.on("click", function() {
+              video.pause();
+              var vidCanvas = document.createElement("canvas");
+              vidCanvas.width = video.videoWidth;
+              vidCanvas.height = video.videoHeight;
+              vidCanvas.getContext("2d").drawImage(video, 0, 0);
+              uploadToServer(
+                vidCanvas.toDataURL(jpgImageType, 0.8),
+                currentAPI
+              );
+              setTimeout(function() {
+                video.play();
+              }, 5000);
+            });
+          })
+          .catch(error => {
+            console.log("ERROR ACCESSING VIDEO CAMERA: ");
+            console.log(error);
+            alert(
+              "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit https://sketchme.azurewebsites.net/"
+            );
           });
-        },
-        //handle error
-        function(error) {
-          console.log("ERROR ACCESSING VIDEO CAMERA: ");
-          console.log(error);
-          alert(
-            "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit https://sketchme.azurewebsites.net/"
-          );
-        }
-      );
+      }
     } else {
       toggleHome();
     }
