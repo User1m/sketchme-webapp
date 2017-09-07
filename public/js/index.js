@@ -327,36 +327,31 @@ $(document).ready(function() {
     if (sketchBtn.text() != "Go Home") {
       toggleWebcam();
       var video = document.getElementById("video");
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(function(stream) {
-            video.src = window.URL.createObjectURL(stream);
-            video.play();
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(function(stream) {
+          video.src = window.URL.createObjectURL(stream);
+          video.play();
 
-            useWebcamImageBtn.on("click", function() {
-              video.pause();
-              var vidCanvas = document.createElement("canvas");
-              vidCanvas.width = video.videoWidth;
-              vidCanvas.height = video.videoHeight;
-              vidCanvas.getContext("2d").drawImage(video, 0, 0);
-              uploadToServer(
-                vidCanvas.toDataURL(jpgImageType, 0.8),
-                currentAPI
-              );
-              setTimeout(function() {
-                video.play();
-              }, 5000);
-            });
-          })
-          .catch(error => {
-            console.log("ERROR ACCESSING VIDEO CAMERA: ");
-            console.log(error);
-            alert(
-              "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit https://sketchme.azurewebsites.net/"
-            );
+          useWebcamImageBtn.on("click", function() {
+            video.pause();
+            var vidCanvas = document.createElement("canvas");
+            vidCanvas.width = video.videoWidth;
+            vidCanvas.height = video.videoHeight;
+            vidCanvas.getContext("2d").drawImage(video, 0, 0);
+            uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
+            setTimeout(function() {
+              video.play();
+            }, 5000);
           });
-      }
+        })
+        .catch(error => {
+          console.log("ERROR ACCESSING VIDEO CAMERA: ");
+          console.log(error);
+          alert(
+            "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit https://sketchme.azurewebsites.net/"
+          );
+        });
     } else {
       toggleHome();
     }
