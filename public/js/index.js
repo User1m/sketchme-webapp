@@ -1,6 +1,6 @@
 "use strict";
 
-const baseAPI = env.URL || `http://localhost:${env.PORT}`;
+const baseAPI = env.URL || `http://127.0.0.1:${env.PORT}`;
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const jpgImageType = "image/jpeg",
