@@ -263,6 +263,7 @@ $(document).ready(function() {
   navigator.getMedia =
     navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
+    navigator.mediaDevices.getUserMedia ||
     navigator.mozGetUserMedia;
 
   /* Setup */
@@ -353,7 +354,9 @@ $(document).ready(function() {
         function(error) {
           console.log("ERROR ACCESSING VIDEO CAMERA: ");
           console.log(error);
-          alert("A webcam is not available on this device.");
+          alert(
+            "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit https://sketchme.azurewebsites.net/"
+          );
         }
       );
     } else {
