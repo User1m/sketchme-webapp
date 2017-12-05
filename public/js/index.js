@@ -1,6 +1,6 @@
 "use strict";
 
-const baseAPI = env.URL || `http://127.0.0.1:${env.PORT}`;
+const baseAPI = `${env.prod.URL}:${env.prod.PORT}`;
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const jpgImageType = "image/jpeg",
@@ -52,11 +52,14 @@ function setupCanvas() {
 
   // Set up mouse events for drawing
   var drawing = false;
-  var mousePos = { x: 0, y: 0 };
+  var mousePos = {
+    x: 0,
+    y: 0
+  };
   var lastPos = mousePos;
   canvas.addEventListener(
     "mousedown",
-    function(e) {
+    function (e) {
       drawing = true;
       lastPos = getMousePos(canvas, e);
     },
@@ -64,14 +67,14 @@ function setupCanvas() {
   );
   canvas.addEventListener(
     "mouseup",
-    function(e) {
+    function (e) {
       drawing = false;
     },
     false
   );
   canvas.addEventListener(
     "mousemove",
-    function(e) {
+    function (e) {
       mousePos = getMousePos(canvas, e);
       renderCanvas();
     },
@@ -101,7 +104,7 @@ function setupCanvas() {
   // Set up touch events for mobile, etc
   canvas.addEventListener(
     "touchstart",
-    function(e) {
+    function (e) {
       mousePos = getTouchPos(canvas, e);
       var touch = e.touches[0];
       var mouseEvent = new MouseEvent("mousedown", {
@@ -114,7 +117,7 @@ function setupCanvas() {
   );
   canvas.addEventListener(
     "touchend",
-    function(e) {
+    function (e) {
       var mouseEvent = new MouseEvent("mouseup", {});
       canvas.dispatchEvent(mouseEvent);
     },
@@ -122,7 +125,7 @@ function setupCanvas() {
   );
   canvas.addEventListener(
     "touchmove",
-    function(e) {
+    function (e) {
       var touch = e.touches[0];
       var mouseEvent = new MouseEvent("mousemove", {
         clientX: touch.clientX,
@@ -155,7 +158,11 @@ function saveCanvasImage() {
   // save canvas image as data url (png format by default)
   var dataURL = canvas.toDataURL(jpgImageType, 0.8);
   $("#resultImg").show();
-  $("#resultImg").attr({ src: dataURL, width: canvasW, height: canvasH });
+  $("#resultImg").attr({
+    src: dataURL,
+    width: canvasW,
+    height: canvasH
+  });
 }
 
 function base64ToArrayBuffer(base64) {
@@ -203,12 +210,12 @@ function uploadToServer(image, url) {
     contentType: "application/octet-stream",
     data: bytesArray,
     processData: false,
-    success: function(data) {
+    success: function (data) {
       $("#loader").hide();
       showImages(data);
       // alert('Image Generation Successful');
     },
-    error: function() {
+    error: function () {
       $("#loader").hide();
       alert(
         "Error uploading image. Please verify that the image is valid and less than 10MB."
@@ -222,7 +229,7 @@ function getBase64Image(file, cb) {
   var canvas = document.createElement("canvas");
   var ctx = canvas.getContext("2d");
   var img = new Image();
-  img.onload = function() {
+  img.onload = function () {
     canvas.width = img.width;
     canvas.height = img.height;
     ctx.drawImage(img, 0, 0);
@@ -241,7 +248,7 @@ function sketchUpload(dataURL) {
   uploadToServer(dataURL, sketchAPI);
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const sketchBtnHtml = $("#sketchBtn").html();
   const canvasDiv = $("#canvasDiv");
   const imageDiv = $("#imageDiv");
@@ -313,7 +320,7 @@ $(document).ready(function() {
     webcamBtn.hide();
   }
 
-  sketchBtn.on("click", function() {
+  sketchBtn.on("click", function () {
     // showResults();
     console.log(sketchBtn.text());
     if (sketchBtn.text() != "Go Home") {
@@ -323,24 +330,26 @@ $(document).ready(function() {
     }
   });
 
-  webcamBtn.on("click", function() {
+  webcamBtn.on("click", function () {
     if (sketchBtn.text() != "Go Home") {
       toggleWebcam();
       var video = document.getElementById("video");
       navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(function(stream) {
+        .getUserMedia({
+          video: true
+        })
+        .then(function (stream) {
           video.src = window.URL.createObjectURL(stream);
           video.play();
 
-          useWebcamImageBtn.on("click", function() {
+          useWebcamImageBtn.on("click", function () {
             video.pause();
             var vidCanvas = document.createElement("canvas");
             vidCanvas.width = video.videoWidth;
             vidCanvas.height = video.videoHeight;
             vidCanvas.getContext("2d").drawImage(video, 0, 0);
             uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
-            setTimeout(function() {
+            setTimeout(function () {
               video.play();
             }, 5000);
           });
@@ -357,11 +366,11 @@ $(document).ready(function() {
     }
   });
 
-  useSketchBtn.on("click", function() {
+  useSketchBtn.on("click", function () {
     uploadToServer(canvas.toDataURL(jpgImageType, 0.8), currentAPI);
   });
 
-  uploadImageBtn.on("change", function() {
+  uploadImageBtn.on("change", function () {
     var imageFile = uploadImageBtn.get(0).files[0];
     getBase64Image(imageFile, modelUpload);
     // console.log(imageData.type);
@@ -375,7 +384,7 @@ $(document).ready(function() {
   //   getBase64Image(imageFile, sketchUpload);
   // });
 
-  tryAgainBtn.on("click", function() {
+  tryAgainBtn.on("click", function () {
     selectImageArea.show();
     resultsArea.hide();
   });
