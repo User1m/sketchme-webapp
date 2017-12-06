@@ -1,6 +1,6 @@
 const env = {
   prods: {
-    URL: "https://sketchme-backend.azurewebsites.net",
+    URL: "http://clmbsketchme.azurewebsites.net",
     PORT: "443"
   },
   prod: {
