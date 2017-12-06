@@ -1,7 +1,7 @@
 const env = {
   prods: {
-    URL: "https://clmbsketchme.azurewebsites.net",
-    PORT: "443"
+    URL: "http://clmbsketchme1.azurewebsites.net",
+    PORT: "80"
   },
   prod: {
     URL: "http://52.229.32.160",

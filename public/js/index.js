@@ -1,6 +1,6 @@
 "use strict";
 
-const baseAPI = `${env.prods.URL}:${env.prods.PORT}`;
+const baseAPI = `${env.prod.URL}:${env.prod.PORT}`;
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const jpgImageType = "image/jpeg",
@@ -206,6 +206,7 @@ function uploadToServer(image, url) {
   $.ajax({
     url: url,
     type: "POST",
+    crossDomain: true,
     cache: false,
     contentType: "application/octet-stream",
     data: bytesArray,
