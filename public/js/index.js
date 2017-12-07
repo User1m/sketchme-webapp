@@ -219,7 +219,7 @@ function uploadToServer(image, url) {
     error: function () {
       $("#loader").hide();
       alert(
-        `Error: Please make to enable "Load unsafe scripts". To learn how go here: https://www.youtube.com/watch?v=9bIDlMs_mBw`
+        `Error: Please make to enable "Load unsafe scripts". To learn how go here: bit.ly/load-unsafe-scripts`
         // "Error uploading image. Please verify that the image is valid and less than 10MB."
       );
     }
