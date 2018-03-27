@@ -1,6 +1,8 @@
 "use strict";
 
-const baseAPI = `${env.prod.URL}:${env.prod.PORT}`;
+const env = require("./env.json");
+
+const baseAPI = env.baseAPI;
 const sketchAPI = `${baseAPI}/sketch`;
 const modelAPI = `${baseAPI}/model`;
 const jpgImageType = "image/jpeg",

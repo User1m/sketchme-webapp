@@ -4,9 +4,11 @@
   "description": "Webapp to show the application of sketch2pix",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/http-server . -p 8080",
-    "start-local": "node_modules/.bin/http-server .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docker:build": "./scripts/build.sh",
+    "docker:run": "./scripts/run.sh",
+    "set:env": "node ./public/js/setenv.js > ./public/js/env.json",
+    "start": "npm run set:env && node_modules/.bin/http-server . -p $PORT",
+    "start-local": "node_modules/.bin/http-server ."
   },
   "repository": {
     "type": "git",

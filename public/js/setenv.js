@@ -1,0 +1,1 @@
+console.log(JSON.stringify({ baseAPI: process.env.API_URL }));
