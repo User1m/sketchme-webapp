@@ -1,1 +1,1 @@
-console.log(JSON.stringify({ baseAPI: process.env.API_URL }));
+console.log("const env =", JSON.stringify({ baseAPI: process.env.API_URL }, ";"));

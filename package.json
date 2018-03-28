@@ -6,9 +6,9 @@
   "scripts": {
     "docker:build": "./scripts/build.sh",
     "docker:run": "./scripts/run.sh",
-    "set:env": "node ./public/js/setenv.js > ./public/js/env.json",
-    "start": "npm run set:env && node_modules/.bin/http-server . -p $PORT",
-    "start-local": "node_modules/.bin/http-server ."
+    "set:env": "node ./public/js/setenv.js > ./public/js/env.js",
+    "start": "npm run set:env && http-server . -p $PORT",
+    "start-local": "http-server ."
   },
   "repository": {
     "type": "git",
