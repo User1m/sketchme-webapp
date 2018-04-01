@@ -6,7 +6,6 @@ if [ -z "$1" ]; then
 fi
 
 docker run --rm -itd \
-	-v /Users/claudius/Documents/workspace/_ML/sketchme/sketchme-docker/sketchme-webapp/:/workdir/app/ \
 	-e PORT=80 \
 	-e API_URL=http://localhost:8081 \
 	-p 8080:80 \
