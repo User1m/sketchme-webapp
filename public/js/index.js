@@ -360,7 +360,7 @@ $(document).ready(function () {
           console.log("ERROR ACCESSING VIDEO CAMERA: ");
           console.log(error);
           alert(
-            "Either (1) a webcam is not available on this device or (2) you're using chrome and http. If 2, then visit the https:// version of this url."
+            "Either (1) a webcam is not available on this device or (2) you're using the http:// url. If 2, then visit the https:// version of this url."
           );
         });
     } else {
