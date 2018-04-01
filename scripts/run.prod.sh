@@ -6,7 +6,6 @@ if [ -z "$1" ]; then
 fi
 
 docker run --rm -itd \
-	-e PORT=80 \
 	-e API_URL=http://localhost:8081 \
 	-p 8080:80 \
 	sketchme-webapp:prod-$1
