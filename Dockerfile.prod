@@ -1,6 +1,6 @@
 FROM node:9
-ARG PORT
-ENV PORT=$PORT
+COPY package.json /workdir/package.json
+RUN cd /workdir/ && npm i
 COPY . /workdir/app/
-COPY ./scripts/init.sh /scripts/init.sh
-ENTRYPOINT /scripts/init.sh
+ENV PATH=/workdir/node_modules/.bin/:$PATH
+CMD cd /workdir/app/ && npm start
