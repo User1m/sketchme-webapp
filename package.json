@@ -4,8 +4,8 @@
   "description": "Webapp to show the application of sketch2pix",
   "main": "index.js",
   "scripts": {
-    "docker:build": "./scripts/build.sh",
-    "docker:run": "./scripts/run.sh",
+    "docker:build": "./docker/scripts/build.sh",
+    "docker:run": "./docker/scripts/run.sh",
     "set:env": "node ./public/js/setenv.js > ./public/js/env.js",
     "start": "npm run set:env && http-server . -p 80",
     "start-local": "http-server ."
