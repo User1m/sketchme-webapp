@@ -1,28 +1,29 @@
 ## Synopsis
 
-Webapp to show the application of sketch2pix
+Web App to show the application of sketch2pix model
 
 ## Installation
 
 ```
-npm install
-npm start
+docker run --rm -itd \
+    -e API_URL=http://localhost:8081 \
+    -p 8080:80 \
+    sketchme-webapp:prod-v#
 ```
+* **#** = tag version number (e.g. *2*)
+* **API_URL** = [user1m/sketchme-backend](https://hub.docker.com/r/user1m/sketchme-backend) **host:port**
+
 
 ## Motivation
 
-The overall motivation is to help the police better identify and catch the bad guys faster. But this application shows how we can consume the sketch2pix models.
+This application shows how we can consume the `sketchme-backend` api model.
 
-## Installation
-
-```
-npm install
-npm start
-```
 
 ## Acknowledgements
 
-https://github.com/User1m/sketch2pix
+* [https://hub.docker.com/r/user1m/sketchme-webapp](https://hub.docker.com/r/user1m/sketchme-webapp)
+* [https://hub.docker.com/r/user1m/sketchme-backend](https://hub.docker.com/r/user1m/sketchme-backend)
+* [https://github.com/User1m/sketch2pix](https://github.com/User1m/sketch2pix)
 
 ## License
 
