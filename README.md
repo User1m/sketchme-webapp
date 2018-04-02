@@ -10,8 +10,9 @@ docker run --rm -itd \
     -p 8080:80 \
     sketchme-webapp:prod-v#
 ```
+
 * **#** = tag version number (e.g. *2*)
-* **API_URL** = user1m/sketchme-backend **host:port**
+* **API_URL** = [user1m/sketchme-backend](https://hub.docker.com/r/user1m/sketchme-backend) **host:port**
 
 
 ## Motivation
