@@ -10,7 +10,8 @@ docker run --rm -it \
 	-e PORT=80 \
 	-e API_URL=http://localhost:8081 \
 	-p 8080:80 \
-	sketchme-webapp:$1 \
+	--name sketchme-frontend \
+	sketchme-webapp:prod-$1 \
 	bash
 
 #API_URL=http://clmbsketchme1.azurewebsites.net:80 \

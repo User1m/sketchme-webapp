@@ -1,15 +1,20 @@
 "use strict";
 
-const baseAPI = env.baseAPI;
-const sketchAPI = `${baseAPI}/sketch`;
-const modelAPI = `${baseAPI}/model`;
-const jpgImageType = "image/jpeg",
-  pngImageType = "image/png";
-const canvasW = 500; //770;
-const canvasH = 500; //400;
+const baseAPI = env.baseAPI,
+  sketchAPI = `${baseAPI}/sketch`,
+  modelAPI = `${baseAPI}/model`,
+  jpgImageType = "image/jpeg",
+  pngImageType = "image/png",
+  canvasW = 500, //770;
+  canvasH = 500; //400;
 
+var video;
 var currentAPI = modelAPI;
+var isVideo = false;
 
+/**
+ * clear drawing canvas
+ */
 function clear() {
   const canvas = $("#canvas")[0];
   const ctx = canvas.getContext("2d");
@@ -18,15 +23,18 @@ function clear() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+
+/**
+ * Functions for drawing on canvas
+ */
 function setupCanvas() {
   //setup canvas
-  const canvasDiv = $("#canvasDiv");
-  const canvas = document.querySelector("#canvas");
-  const ctx = canvas.getContext("2d");
-  const clearButton = document.querySelector("#clear");
-
-  let lineWidth = 2;
-  let color = "#000";
+  const canvasDiv = $("#canvasDiv"),
+    canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d"),
+    clearButton = document.querySelector("#clear"),
+    lineWidth = 2,
+    color = "#000";
 
   ctx.strokeStyle = color;
   ctx.lineCap = "round";
@@ -153,9 +161,12 @@ function setupCanvas() {
   // window.addEventListener('orientationchange', resizeCanvas, false);
 }
 
+
+/**
+ *  save canvas image as data url to jpg (png format by default)
+ */
 function saveCanvasImage() {
   const canvas = document.querySelector("#canvas");
-  // save canvas image as data url (png format by default)
   var dataURL = canvas.toDataURL(jpgImageType, 0.8);
   $("#resultImg").show();
   $("#resultImg").attr({
@@ -165,6 +176,10 @@ function saveCanvasImage() {
   });
 }
 
+
+/**
+ * Turn image to bytes array
+ */
 function base64ToArrayBuffer(base64) {
   var binary_string = window.atob(base64);
   var len = binary_string.length;
@@ -175,12 +190,19 @@ function base64ToArrayBuffer(base64) {
   return bytes.buffer;
 }
 
+
+/**
+ * Update UI once backend has responded
+ */
 function showResults() {
   clear();
   $("#selectImage").hide();
   $("#results").show();
 }
 
+/**
+ * Update UI once backend has responded
+ */
 function showImages(data) {
   showResults();
   var splitData = data.split(",");
@@ -195,12 +217,12 @@ function showImages(data) {
   }
 }
 
+/**
+ * Upload image bytes array to server
+ */
 function uploadToServer(image, url) {
   $("#loader").show();
-  var base64ImageContent = image.replace(
-    /^data:image\/(png|jpg|jpeg);base64,/,
-    ""
-  );
+  var base64ImageContent = image.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
   var bytesArray = base64ToArrayBuffer(base64ImageContent);
 
   $.ajax({
@@ -219,13 +241,21 @@ function uploadToServer(image, url) {
     error: function () {
       $("#loader").hide();
       alert(
-        `Error: Please make to enable "Load unsafe scripts".\nTo learn how go here: bit.ly/load-unsafe-scripts`
-        // "Error uploading image. Please verify that the image is valid and less than 10MB."
+        // `Error: Please make to enable "Load unsafe scripts".\nTo learn how go here: bit.ly/load-unsafe-scripts`
+        "Error uploading image. Please verify that the image is valid and less than 10MB."
       );
+    },
+    complete: () => {
+      if (isVideo) {
+        video.play();
+      }
     }
   });
 }
 
+/**
+ * Image to base64 string
+ */
 function getBase64Image(file, cb) {
   // Create an empty canvas element
   var canvas = document.createElement("canvas");
@@ -237,7 +267,6 @@ function getBase64Image(file, cb) {
     ctx.drawImage(img, 0, 0);
     var dataURL = canvas.toDataURL(jpgImageType, 0.8);
     cb(dataURL);
-    // uploadToServer(dataURL, currentAPI);
   };
   img.src = URL.createObjectURL(file);
 }
@@ -250,6 +279,10 @@ function sketchUpload(dataURL) {
   uploadToServer(dataURL, sketchAPI);
 }
 
+/**
+ * Main Code
+ */
+
 $(document).ready(function () {
   const sketchBtnHtml = $("#sketchBtn").html();
   const canvasDiv = $("#canvasDiv");
@@ -259,6 +292,7 @@ $(document).ready(function () {
   const uploadSketchId = $("#uploadSketchId");
   const useSketchBtn = $("#useSketchBtn");
   const useWebcamImageBtn = $("#useWebcamImageBtn");
+  const homeImageBtn = $("#homeImageBtn");
   const uploadImageBtn = $("#uploadImageBtn");
   const canvas = $("#canvas")[0];
   const tryAgainBtn = $("#tryAgainBtn");
@@ -280,12 +314,9 @@ $(document).ready(function () {
   $("#loader").hide();
   setupCanvas();
 
-  if (
-    /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    ) ||
-    navigator.getMedia === undefined
-  ) {
+  //hide webcam btn on mobile
+  if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || navigator.getMedia === undefined) {
     webcamBtn.hide();
   }
 
@@ -334,8 +365,9 @@ $(document).ready(function () {
 
   webcamBtn.on("click", function () {
     if (sketchBtn.text() != "Go Home") {
+      isVideo = true;
       toggleWebcam();
-      var video = document.getElementById("video");
+      video = document.getElementById("video");
       navigator.mediaDevices
         .getUserMedia({
           video: true
@@ -351,9 +383,10 @@ $(document).ready(function () {
             vidCanvas.height = video.videoHeight;
             vidCanvas.getContext("2d").drawImage(video, 0, 0);
             uploadToServer(vidCanvas.toDataURL(jpgImageType, 0.8), currentAPI);
-            setTimeout(function () {
-              video.play();
-            }, 5000);
+          });
+
+          homeImageBtn.on("click", function () {
+            toggleHome();
           });
         })
         .catch(error => {
@@ -373,6 +406,7 @@ $(document).ready(function () {
   });
 
   uploadImageBtn.on("change", function () {
+    isVideo = false;
     var imageFile = uploadImageBtn.get(0).files[0];
     getBase64Image(imageFile, modelUpload);
     // console.log(imageData.type);
@@ -391,20 +425,3 @@ $(document).ready(function () {
     resultsArea.hide();
   });
 });
-
-// var index = 0;
-// var query = document.getElementsByClassName("image-cycle");
-
-// function changeBanner() {
-//     for (var item of query) {
-//         [].forEach.call(
-//             item.children,
-//             function (v, i) {
-//                 item.children[i].hidden = i !== index
-//             }
-//         );
-//         index = (index + 1) % item.children.length;
-//     }
-// }
-
-// window.onload = setupCanvas();
