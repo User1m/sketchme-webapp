@@ -6,8 +6,8 @@ if [ -z "$1" ]; then
 fi
 
 docker run --rm -it \
-	-v /Users/claudius/Documents/workspace/_ML/sketchme/sketchme-docker/sketchme-webapp/docker/scripts/init.sh:/scripts/init.sh \
-	-v /Users/claudius/Documents/workspace/_ML/sketchme/sketchme-docker/sketchme-webapp/:/workdir/app/ \
+	-v /Users/claudius/Documents/workspace/_ML/sketchme/sketchme-docker/frontend/docker/scripts/init.sh:/scripts/init.sh \
+	-v /Users/claudius/Documents/workspace/_ML/sketchme/sketchme-docker/frontend/:/workdir/app/ \
 	-e PORT=80 \
 	-e API_URL=http://localhost:8081 \
 	-p 8080:80 \
