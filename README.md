@@ -2,6 +2,25 @@
 
 Web App to show the application of sketch2pix model
 
+
+## Deploy
+
+#### **_Prereq:_**
+
+* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+
+```
+> ./docker/scripts/deploy.sh
+```
+
+This will deploy your frontend and backend to Microsoft's Azure Cloud and give you a publicly accessible endpoint for the app.
+
+**NOTE:**
+
+Your app will available at `https://<domain>.azurewebsites.net`. But it will take serveral mintues for the services on Azure to fully be up. Please be patient.
+
+Additionally, the 1st run of the service will be very slow but subsequent requests should be "more" performant.
+
 ## Installation
 
 ```
